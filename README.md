@@ -272,3 +272,69 @@ The `loadExpenses()` function is the single source of truth for the list view. E
 **Pagination.** At personal expense scale — a few hundred records at most — pagination adds complexity with no real benefit. A full table scan on a local SQLite file is measured in microseconds at this scale.
 
 **Automated tests.** Given the timebox, I prioritised a correct and well-documented implementation over test coverage. The natural next step would be integration tests on the two POST and GET endpoints using a test database, verifying the idempotency behaviour specifically.
+
+---
+
+## Phase 5 — Setup and Running the Project
+
+### Prerequisites
+
+- Node.js v18 or higher
+- npm
+
+---
+
+### Running locally
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/parakhchaudhary/FenmoExpenseTracker_Parakh.git
+cd FenmoExpenseTracker_Parakh
+```
+
+**2. Install dependencies**
+
+```bash
+npm install
+```
+
+This installs `express`, `better-sqlite3`, `uuid`, and `cors`. There is no frontend build step — the single `public/index.html` is served directly by Express as a static file.
+
+**3. Start the server**
+
+```bash
+node src/server.js
+```
+
+The server starts on port `3000` by default. Open `http://localhost:3000` in your browser.
+
+The SQLite database file (`expenses.db`) is created automatically on first run in the project root. It does not need to be created manually. WAL mode is enabled on startup via `PRAGMA journal_mode = WAL`.
+
+---
+
+### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `PORT` | `3000` | Port the Express server listens on. Set this on your deployment platform. |
+
+No `.env` file is required to run locally. If you create one, it is gitignored.
+
+---
+
+### Live deployment
+
+**Live URL:** *(to be filled in after Railway deployment)*
+
+The application is deployed on Railway. The same `node src/server.js` start command is used in production — no separate build step. Railway injects the `PORT` environment variable automatically; the server reads it via `process.env.PORT`.
+
+---
+
+### Verifying the deployment
+
+Three tests I run against the live URL before submitting:
+
+1. **Submit an expense** — fill the form and submit. Confirm the new entry appears in the list immediately below.
+2. **Persistence across refresh** — reload the page. Confirm the expense is still present. This verifies SQLite is persisting to disk and not to an ephemeral in-memory store.
+3. **Idempotency under rapid submission** — submit the same form twice in quick succession. Confirm only one record is created. The second request returns the original record with `200 OK`; no duplicate row is inserted.
