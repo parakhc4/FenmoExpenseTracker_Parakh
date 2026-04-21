@@ -32,7 +32,9 @@ FR8 : The system shall validate expense input on both the client and the server.
 # Phase 2 : Design the Flow
 1. Entities :
 (Written at 03:29:21)
-## Expense 
+
+Expense 
+
 Attributes : 
 - id (Text, primary key, UUID4 generated at server side)
 
@@ -45,3 +47,6 @@ Attributes :
 - date (Text)
 
 - created_At (Text) (server-generated ISO 8601 timestamp of when the record was inserted. Used as a tiebreaker when two expenses share the same date)
+
+
+(The current schema is intentionally single-tenant. A User entity with a user_id foreign key on the EXPENSE table would be the natural next step if multi-user support were required. That extension would not require changing any existing columns.)
