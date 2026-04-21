@@ -325,7 +325,7 @@ No `.env` file is required to run locally. If you create one, it is gitignored.
 
 ### Live deployment
 
-**Live URL:** *(to be filled in after Railway deployment)*
+**Live URL:** http://13.200.179.252:3000
 
 The application is deployed on Railway. The same `node src/server.js` start command is used in production — no separate build step. Railway injects the `PORT` environment variable automatically; the server reads it via `process.env.PORT`.
 
