@@ -28,3 +28,20 @@ FR6 : The system shall handle duplicate submissions gracefully. Retrying a faile
 FR7 : The system shall persist expense data across page refreshes and browser sessions.
 
 FR8 : The system shall validate expense input on both the client and the server. Amount must be a positive number. Category, description, and date must be non-empty. Invalid requests must be rejected with a descriptive error.
+
+# Phase 2 : Design the Flow
+1. Entities :
+(Written at 03:29:21)
+## Expense 
+Attributes : 
+- id (Text, primary key, UUID4 generated at server side)
+
+- amount (Integer) (stored in paise (rupees × 100) - I researched this right now and found this to be the best way to store money, used in major financial apps such as RazorPay, Stripe etc. Done because floating point arithmetic cannot represent all decimal fractions exactly in binary.)
+
+- category (Text)
+
+- description (Text)
+
+- date (Text)
+
+- created_At (Text) (server-generated ISO 8601 timestamp of when the record was inserted. Used as a tiebreaker when two expenses share the same date)
