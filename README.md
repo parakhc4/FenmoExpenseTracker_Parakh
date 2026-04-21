@@ -17,6 +17,14 @@ FR 1 : The System should allow the user to create an expense entry with amount, 
 
 FR 2 : The System should allow the user to view a list of all of the expenses.
 
-FR 3 : The System should allow the user to filter the expenses by Category, and sort the expenses by date.
+FR 3 : The system shall allow the user to filter the expense list by category.
 
-FR 4 : The System should manage a Running Total and display it to the user.
+FR 4 : The system should allow the user to sort the expense list by date, with the newest expense appearing first.
+
+FR5 : The System should compute and display a running total of all currently visible expenses, reflecting the active filter and sort state.
+
+FR6 : The system shall handle duplicate submissions gracefully. Retrying a failed or slow request must not create duplicate expense records.
+
+FR7 : The system shall persist expense data across page refreshes and browser sessions.
+
+FR8 : The system shall validate expense input on both the client and the server. Amount must be a positive number. Category, description, and date must be non-empty. Invalid requests must be rejected with a descriptive error.
